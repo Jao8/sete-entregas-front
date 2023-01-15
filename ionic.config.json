@@ -1,0 +1,7 @@
+{
+  "name": "seteEntregas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
