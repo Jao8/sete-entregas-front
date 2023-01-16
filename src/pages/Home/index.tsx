@@ -1,8 +1,9 @@
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../../components/ExploreContainer';
 import './styles.css';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { useState } from 'react';
+import { Geolocation } from '@capacitor/geolocation';
+
 
 interface imageElement {
   src: string;
@@ -10,8 +11,17 @@ interface imageElement {
 
 const Home: React.FC = () => {
 
-  const [image, setImage] = useState<any>(null)
+  const [image, setImage] = useState<any>(null);
+  const [location, setLocation] = useState<any>(null);
   const api = 'http://localhost/sete-entregas/api/images';
+
+
+const printCurrentPosition = async () => {
+  const coordinates = await Geolocation.getCurrentPosition();
+  setLocation(coordinates);
+  console.log('Current position:', coordinates);
+};
+
 
   const takePicture = async () => {
     console.log('Taking picture');
@@ -56,7 +66,7 @@ const Home: React.FC = () => {
       },
       body: JSON.stringify({
         photo: base64Image,
-        location: '123,123'
+        location
       })
     });
   }
